@@ -1,5 +1,3 @@
-from queue import PriorityQueue
-
 dict_graph = {}
 
 # Read the data.txt file
@@ -19,29 +17,35 @@ def BreadthFirstSearch(graph, src, dst):
     count = 0
     q = [(src, [src], 0)]
     visited = {src}
+    if src == dst:
+        return src, 0, count + 1, len(visited)
     while q:
-        #count = count + 1
+        # count = count + 1
         (node, path, cost) = q.pop(0)
         for temp in list(graph[node].keys()):
             count = count + 1
             if temp == dst:
-                return path + [temp], cost + graph[node][temp] , str(count)
+                return path + [temp], cost + graph[node][temp], str(count), len(visited)
             else:
                 if temp not in visited:
                     visited.add(temp)
                     q.append((temp, path + [temp], cost + graph[node][temp]))
 
 
-
 # Depth First Search Method
 def DepthFirstSearch(graph, src, dst):
     stack = [(src, [src], 0)]
     visited = {src}
+    count = 0
+    if src == dst:
+        return src, 0, count + 1, len(visited)
+    if src == dst:
+        return src, 0, count + 1, len(visited)
     while stack:
         (node, path, cost) = stack.pop()
         for temp in list(graph[node].keys()):
             if temp == dst:
-                return path + [temp], cost + graph[node][temp]
+                return path + [temp], cost + graph[node][temp], count, len(visited)
             else:
                 if temp not in visited:
                     visited.add(temp)
@@ -54,15 +58,19 @@ def IterativeDeepening(graph, src, dst):
     count = 0
     stack = [(src, [src], 0)]
     visited = {src}
+    numberCount = 0
+    if src == dst:
+        return src, 0, count + 1, len(visited)
     while True:
         level += 1
         while stack:
+            numberCount = numberCount + 1
             if count <= level:
                 count = 0
                 (node, path, cost) = stack.pop()
                 for temp in list(graph[node].keys()):
                     if temp == dst:
-                        return path + [temp], cost + graph[node][temp]
+                        return path + [temp], cost + graph[node][temp], numberCount, len(visited)
                     else:
                         if temp not in visited:
                             visited.add(temp)
@@ -75,75 +83,80 @@ def IterativeDeepening(graph, src, dst):
                     (node, path, cost) = q.pop(0)
                     for temp in list(graph[node].keys()):
                         if temp == dst:
-                            return path + [temp], cost + graph[node][temp]
+                            return path + [temp], cost + graph[node][temp], numberCount, len(visited)
                         else:
                             if temp not in visited_bfs:
                                 visited_bfs.add(temp)
                                 q.append((temp, path + [temp], cost + graph[node][temp]))
                 break
 
-def fun(item):
+
+def ucsHelper(item):
     return item[2]
-def ucs2(graph, src, dst):
+
+
+def ucs(graph, src, dst):
     count = 0
     q = [(src, [src], 0)]
     visited = {src}
+    if src == dst:
+        return src, 0, count + 1, len(visited)
     while q:
         # count = count + 1
         (node, path, cost) = q.pop(0)
         for temp in list(graph[node].keys()):
             count = count + 1
             if temp == dst:
-                return path + [temp], cost + graph[node][temp], str(count)
+                return path + [temp], cost + graph[node][temp], str(count), len(visited)
             else:
                 if temp not in visited:
                     visited.add(temp)
                     q.append((temp, path + [temp], cost + graph[node][temp]))
-                    q.sort(key=fun)
+                    q.sort(key=ucsHelper)
 
-
-n = 1
-print(dict_graph)
-print("------------------------------------------------")
-while n == 1:
-    x = eval(input("enter the type of search you want to do \n1.BFS 2.DFS 3.ID 4.UCS:: \n "))
-    if x == 1:
-        src = input("Enter the source: ")
-        dst = input("Enter the Destination: ")
-        while src not in dict_graph or dst not in dict_graph:
-            print("No such city name")
-            src = input("Enter the correct source (case_sensitive):\n")
-            dst = input("Enter the correct destination(case_sensitive):\n ")
-        print("for BFS")
-        print((BreadthFirstSearch(dict_graph, src, dst)))
-
-    elif x == 2:
-        src = input("Enter the source: ")
-        dst = input("Enter the Destination: ")
-        while src not in dict_graph or dst not in dict_graph:
-            print("No such city name")
-            src = input("Enter the correct source (case_sensitive):\n")
-            dst = input("Enter the correct destination(case_sensitive):\n ")
-        print("for DFS")
-        print((DepthFirstSearch(dict_graph, src, dst)))
-
-    elif x == 3:
-        src = input("Enter the source:")
-        dst = input("Enter the Destination: ")
-        while src not in dict_graph or dst not in dict_graph:
-            print("No such city name")
-            src = input("Enter the correct source (case_sensitive):\n")
-            dst = input("Enter the correct destination(case_sensitive):\n")
-        print("for ID")
-        print((IterativeDeepening(dict_graph, src, dst)))
-    elif x == 4:
-        src = input("Enter the source:")
-        dst = input("Enter the Destination: ")
-        while src not in dict_graph or dst not in dict_graph:
-            print("No such city name")
-            src = input("Enter the correct source (case_sensitive):\n")
-            dst = input("Enter the correct destination(case_sensitive):\n")
-        print("for UCS")
-        print((ucs2(dict_graph, src, dst)))
-
-    n = eval(input("enter 1 if you wish to continue:\n"))
+# print(BreadthFirstSearch(dict_graph, "Adham", "Tathleeth"))
+# n = 1
+# print(dict_graph)
+# print("------------------------------------------------")
+# while n == 1:
+#     x = eval(input("enter the type of search you want to do \n1.BFS 2.DFS 3.ID 4.UCS:: \n "))
+#     if x == 1:
+#         src = input("Enter the source: ")
+#         dst = input("Enter the Destination: ")
+#         while src not in dict_graph or dst not in dict_graph:
+#             print("No such city name")
+#             src = input("Enter the correct source (case_sensitive):\n")
+#             dst = input("Enter the correct destination(case_sensitive):\n ")
+#         print("for BFS")
+#         print((BreadthFirstSearch(dict_graph, src, dst)))
+#
+#     elif x == 2:
+#         src = input("Enter the source: ")
+#         dst = input("Enter the Destination: ")
+#         while src not in dict_graph or dst not in dict_graph:
+#             print("No such city name")
+#             src = input("Enter the correct source (case_sensitive):\n")
+#             dst = input("Enter the correct destination(case_sensitive):\n ")
+#         print("for DFS")
+#         print((DepthFirstSearch(dict_graph, src, dst)))
+#
+#     elif x == 3:
+#         src = input("Enter the source:")
+#         dst = input("Enter the Destination: ")
+#         while src not in dict_graph or dst not in dict_graph:
+#             print("No such city name")
+#             src = input("Enter the correct source (case_sensitive):\n")
+#             dst = input("Enter the correct destination(case_sensitive):\n")
+#         print("for ID")
+#         print((IterativeDeepening(dict_graph, src, dst)))
+#     elif x == 4:
+#         src = input("Enter the source:")
+#         dst = input("Enter the Destination: ")
+#         while src not in dict_graph or dst not in dict_graph:
+#             print("No such city name")
+#             src = input("Enter the correct source (case_sensitive):\n")
+#             dst = input("Enter the correct destination(case_sensitive):\n")
+#         print("for UCS")
+#         print((ucs(dict_graph, src, dst)))
+#
+#     n = eval(input("enter 1 if you wish to continue:\n"))

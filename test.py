@@ -1,8 +1,8 @@
-import pyvis.network
 from queue import PriorityQueue
 import time
+import pyvis.network
 
-pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%")
+#pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%")
 
 dict_graph = {}
 
@@ -28,7 +28,7 @@ def BreadthFirstSearch(graph, src, dst):
         for temp in list(graph[node].keys()):
             count = count + 1
             if temp == dst:
-                return path + [temp], cost + graph[node][temp], str(count),visited
+                return path + [temp], cost + graph[node][temp], str(count), visited
             else:
                 if temp not in visited:
                     visited.add(temp)
@@ -125,36 +125,16 @@ def IterativeDeepening(graph, src, dst):
                 break
 
 
-# print((ucs(dict_graph, "Riyadh", "Abha")))
-# print((ucs2(dict_graph, "Riyadh", "Shaqra")))
-# print((BreadthFirstSearch(dict_graph, "Riyadh", "Shaqra")))
-# print((DepthFirstSearch(dict_graph, "Riyadh", "Shaqra")))
-# print((IterativeDeepening(dict_graph, "Riyadh", "Shaqra")))
-xx, yy, zz,newXX = BreadthFirstSearch(dict_graph, "Riyadh", "Abha")
-
-start1 = time.time()
-# print((BreadthFirstSearch(dict_graph, "r", "n")))
-print((BreadthFirstSearch(dict_graph, "Al-Laith", "Thar")))
-
-time.sleep(1)
-end1 = time.time()
-start2 = time.time()
-# print((IterativeDeepening(dict_graph, "r", "n")))
-print((IterativeDeepening(dict_graph, "Al-Laith", "Thar")))
-time.sleep(1)
-end2 = time.time()
-print(end1 - start1)
-print(end2 - start2)
+xx, yy, zz, newXX = BreadthFirstSearch(dict_graph, "Riyadh", "Abha")
+# with open("cities.txt", 'r') as f:
+#     for l in f:
+#         color = "red"
+#         a, b, c = l.split()
+#         if a in xx or b in xx:
+#             color = "green"
+#         pyvis_graph.add_node(a, label=a, title=a, color=color)
+#         pyvis_graph.add_node(b, label=b, title=b, color=color)
+#         pyvis_graph.add_edge(a, b, label=c, title=c, color=color)
 #
-with open("cities.txt", 'r') as f:
-    for l in f:
-        color = "red"
-        a, b, c = l.split()
-        if a in xx or b in xx:
-            color = "green"
-        pyvis_graph.add_node(a, label=a, title=a, color=color)
-        pyvis_graph.add_node(b, label=b, title=b, color=color)
-        pyvis_graph.add_edge(a, b, label=c, title=c, color=color)
-
-pyvis_graph.force_atlas_2based()
-pyvis_graph.show("graph.html")
+# pyvis_graph.force_atlas_2based()
+# pyvis_graph.show("graph.html")

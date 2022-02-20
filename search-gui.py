@@ -10,12 +10,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Search import *
+import pyvis.network
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1116, 901)
+        MainWindow.setWindowTitle("search methods")
         MainWindow.setStyleSheet("QToolTip\n"
                                  "{\n"
                                  "     border: 1px solid black;\n"
@@ -590,10 +592,6 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        global url
-        url = "file:///D:/projects/search-methods/{name}".format(name="graph.html")
-        self.widget.setUrl(QtCore.QUrl(url))
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -609,8 +607,77 @@ class Ui_MainWindow(object):
         with open("allCities.txt", 'r') as f:
             for k in f:
                 counter = counter + 1
-                self.comboBox.setItemText(counter, _translate("MainWindow", k))
-                self.comboBox_2.setItemText(counter, _translate("MainWindow", k))
+                self.comboBox.setItemText(counter, _translate("MainWindow", k.strip()))
+                self.comboBox_2.setItemText(counter, _translate("MainWindow", k.strip()))
+        self.bfs.clicked.connect(lambda: self.bfsMethod())
+        self.ucs.clicked.connect(lambda: self.ucsMethod())
+        self.its.clicked.connect(lambda: self.itsMethod())
+
+    def bfsMethod(self):
+        nameOfGraph = "bfs.html"
+        pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%")
+        a, b, c, d = BreadthFirstSearch(dict_graph, self.comboBox.currentText(), self.comboBox_2.currentText())
+        with open("cities.txt", 'r') as f:
+            for l in f:
+                color = "red"
+                x, y, z = l.split()
+                if x in a or y in a:
+                    color = "green"
+                if b == 0:
+                    color = "red"
+                pyvis_graph.add_node(x, label=x, title=x, color=color)
+                pyvis_graph.add_node(y, label=y, title=y, color=color)
+                pyvis_graph.add_edge(x, y, label=z, title=z, color=color)
+        t = "{n1} , {n2} , {n3} , {n4}".format(n1=a, n2=b, n3=c, n4=d)
+        pyvis_graph.force_atlas_2based()
+        pyvis_graph.show(nameOfGraph)
+        self.textEdit.setPlainText(t)
+        url = "file:///D:/projects/search-methods/{name}".format(name=nameOfGraph)
+        self.widget.setUrl(QtCore.QUrl(url))
+
+    def ucsMethod(self):
+        nameOfGraph = "ucs.html"
+        pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%")
+        a, b, c, d = ucs(dict_graph, self.comboBox.currentText(), self.comboBox_2.currentText())
+        with open("cities.txt", 'r') as f:
+            for l in f:
+                color = "red"
+                x, y, z = l.split()
+                if x in a or y in a:
+                    color = "green"
+                if b == 0:
+                    color = "red"
+                pyvis_graph.add_node(x, label=x, title=x, color=color)
+                pyvis_graph.add_node(y, label=y, title=y, color=color)
+                pyvis_graph.add_edge(x, y, label=z, title=z, color=color)
+        t = "{n1} , {n2} , {n3} , {n4}".format(n1=a, n2=b, n3=c, n4=d)
+        pyvis_graph.force_atlas_2based()
+        pyvis_graph.show(nameOfGraph)
+        self.textEdit.setPlainText(t)
+        url = "file:///D:/projects/search-methods/{name}".format(name=nameOfGraph)
+        self.widget.setUrl(QtCore.QUrl(url))
+
+    def itsMethod(self):
+        nameOfGraph = "its.html"
+        pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%")
+        a, b, c, d = IterativeDeepening(dict_graph, self.comboBox.currentText(), self.comboBox_2.currentText())
+        with open("cities.txt", 'r') as f:
+            for l in f:
+                color = "red"
+                x, y, z = l.split()
+                if x in a or y in a:
+                    color = "green"
+                if b == 0:
+                    color = "red"
+                pyvis_graph.add_node(x, label=x, title=x, color=color)
+                pyvis_graph.add_node(y, label=y, title=y, color=color)
+                pyvis_graph.add_edge(x, y, label=z, title=z, color=color)
+        t = "{n1} , {n2} , {n3} , {n4}".format(n1=a, n2=b, n3=c, n4=d)
+        pyvis_graph.force_atlas_2based()
+        pyvis_graph.show(nameOfGraph)
+        self.textEdit.setPlainText(t)
+        url = "file:///D:/projects/search-methods/{name}".format(name=nameOfGraph)
+        self.widget.setUrl(QtCore.QUrl(url))
 
 
 from PyQt5 import QtWebEngineWidgets
