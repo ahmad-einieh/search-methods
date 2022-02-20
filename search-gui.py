@@ -17,7 +17,6 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1116, 901)
-        MainWindow.setWindowTitle("search methods")
         MainWindow.setStyleSheet("QToolTip\n"
                                  "{\n"
                                  "     border: 1px solid black;\n"
@@ -597,7 +596,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "search methods"))
         self.label.setText(_translate("MainWindow", "city 1"))
         self.label_2.setText(_translate("MainWindow", "city 2"))
         self.bfs.setText(_translate("MainWindow", "BFS"))
