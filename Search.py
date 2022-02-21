@@ -15,17 +15,20 @@ with open('cities.txt', 'r') as f:
 # Breadth First Search Method
 def BreadthFirstSearch(graph, src, dst):
     count = 0
+    max = 0
     q = [(src, [src], 0)]
     visited = {src}
     if src == dst:
-        return src, 0, count + 1, len(visited)
+        return src, 0, count + 1, len(visited),max
     while q:
+        if len(q) > max:
+            max = len(q)
         # count = count + 1
         (node, path, cost) = q.pop(0)
         for temp in list(graph[node].keys()):
             count = count + 1
             if temp == dst:
-                return path + [temp], cost + graph[node][temp], str(count), len(visited)
+                return path + [temp], cost + graph[node][temp], str(count), len(visited) , max
             else:
                 if temp not in visited:
                     visited.add(temp)

@@ -537,6 +537,7 @@ class Ui_MainWindow(object):
                                  "}\n"
                                  "\n"
                                  "")
+
         MainWindow.setWindowFlags(MainWindow.windowFlags() & ~QtCore.Qt.WindowMaximizeButtonHint)
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -584,7 +585,7 @@ class Ui_MainWindow(object):
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(265, 250, 621, 87))
+        self.textEdit.setGeometry(QtCore.QRect(250, 260, 620, 100))
         self.textEdit.setObjectName("textEdit")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -599,6 +600,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "search methods"))
         self.label.setText(_translate("MainWindow", "city 1"))
         self.label_2.setText(_translate("MainWindow", "city 2"))
+        self.textEdit.setFontPointSize(15)
         self.bfs.setText(_translate("MainWindow", "BFS"))
         self.ucs.setText(_translate("MainWindow", "UCS"))
         self.its.setText(_translate("MainWindow", "ITS"))
@@ -615,7 +617,7 @@ class Ui_MainWindow(object):
     def bfsMethod(self):
         nameOfGraph = "bfs.html"
         pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%")
-        a, b, c, d = BreadthFirstSearch(dict_graph, self.comboBox.currentText(), self.comboBox_2.currentText())
+        a, b, c, d, eee = BreadthFirstSearch(dict_graph, self.comboBox.currentText(), self.comboBox_2.currentText())
         with open("cities.txt", 'r') as f:
             for l in f:
                 color = "red"
@@ -627,7 +629,7 @@ class Ui_MainWindow(object):
                 pyvis_graph.add_node(x, label=x, title=x, color=color)
                 pyvis_graph.add_node(y, label=y, title=y, color=color)
                 pyvis_graph.add_edge(x, y, label=z, title=z, color=color)
-        t = "{n1} , {n2} , {n3} , {n4}".format(n1=a, n2=b, n3=c, n4=d)
+        t = "{n1} , {n2} , {n3} , {n4} , {n5}".format(n1=a, n2=b, n3=c, n4=d, n5=eee)
         pyvis_graph.force_atlas_2based()
         pyvis_graph.show(nameOfGraph)
         self.textEdit.setPlainText(t)
@@ -671,7 +673,7 @@ class Ui_MainWindow(object):
                 pyvis_graph.add_node(x, label=x, title=x, color=color)
                 pyvis_graph.add_node(y, label=y, title=y, color=color)
                 pyvis_graph.add_edge(x, y, label=z, title=z, color=color)
-        t = "{n1} , {n2} , {n3} , {n4}".format(n1=a, n2=b, n3=c, n4=d)
+        t = "Path: {n1} ,distance: {n2} ,max: {n3} ,total: {n4}".format(n1=a, n2=b, n3=c, n4=d)
         pyvis_graph.force_atlas_2based()
         pyvis_graph.show(nameOfGraph)
         self.textEdit.setPlainText(t)
