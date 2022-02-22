@@ -18,17 +18,18 @@ def BreadthFirstSearch(graph, src, dst):
     max = 0
     q = [(src, [src], 0)]
     visited = {src}
+    if len(q) > max:
+        max = len(q)
     if src == dst:
-        return src, 0, count + 1, len(visited),max
+        return src, 0, len(visited), max
     while q:
         if len(q) > max:
             max = len(q)
-        # count = count + 1
         (node, path, cost) = q.pop(0)
         for temp in list(graph[node].keys()):
             count = count + 1
             if temp == dst:
-                return path + [temp], cost + graph[node][temp], str(count), len(visited) , max
+                return path + [temp], cost + graph[node][temp], len(visited), max
             else:
                 if temp not in visited:
                     visited.add(temp)
@@ -59,21 +60,27 @@ def DepthFirstSearch(graph, src, dst):
 def IterativeDeepening(graph, src, dst):
     level = 0
     count = 0
+    max = 0
     stack = [(src, [src], 0)]
     visited = {src}
-    numberCount = 0
+    if len(stack) > max:
+        max = len(stack)
     if src == dst:
-        return src, 0, count + 1, len(visited)
+        return src, 0, len(visited), max
     while True:
+        if len(stack) > max:
+            max = len(stack)
         level += 1
         while stack:
-            numberCount = numberCount + 1
+            if len(stack) > max:
+                max = len(stack)
+
             if count <= level:
                 count = 0
                 (node, path, cost) = stack.pop()
                 for temp in list(graph[node].keys()):
                     if temp == dst:
-                        return path + [temp], cost + graph[node][temp], numberCount, len(visited)
+                        return path + [temp], cost + graph[node][temp], len(visited), max
                     else:
                         if temp not in visited:
                             visited.add(temp)
@@ -86,7 +93,7 @@ def IterativeDeepening(graph, src, dst):
                     (node, path, cost) = q.pop(0)
                     for temp in list(graph[node].keys()):
                         if temp == dst:
-                            return path + [temp], cost + graph[node][temp], numberCount, len(visited)
+                            return path + [temp], cost + graph[node][temp], len(visited), max
                         else:
                             if temp not in visited_bfs:
                                 visited_bfs.add(temp)
@@ -99,18 +106,21 @@ def ucsHelper(item):
 
 
 def ucs(graph, src, dst):
-    count = 0
+    max = 0
     q = [(src, [src], 0)]
     visited = {src}
+    if len(q) > max:
+        max = len(q)
     if src == dst:
-        return src, 0, count + 1, len(visited)
+        return src, 0, len(visited), max
     while q:
-        # count = count + 1
+        if len(q) > max:
+            max = len(q)
         (node, path, cost) = q.pop(0)
         for temp in list(graph[node].keys()):
-            count = count + 1
+
             if temp == dst:
-                return path + [temp], cost + graph[node][temp], str(count), len(visited)
+                return path + [temp], cost + graph[node][temp], len(visited), max
             else:
                 if temp not in visited:
                     visited.add(temp)
