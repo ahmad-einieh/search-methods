@@ -637,6 +637,7 @@ class Ui_MainWindow(object):
         self.distance.setFontPointSize(15)
         self.total.setFontPointSize(15)
         self.max.setFontPointSize(15)
+
         counter = -1
         with open("allCities.txt", 'r') as f:
             for k in f:
@@ -649,18 +650,24 @@ class Ui_MainWindow(object):
 
     def bfsMethod(self):
         nameOfGraph = "bfs.html"
-        pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%")
+        pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%", bgcolor="#222222",
+                                            font_color="#FFFFFF")
         a, b, c, d = BreadthFirstSearch(dict_graph, self.comboBox.currentText(), self.comboBox_2.currentText())
+
         with open("cities.txt", 'r') as f:
             for l in f:
                 color = "red"
+                color1 = "red"
+                color2 = "red"
                 x, y, z = l.split()
-                if x in a or y in a:
+                if x in a:
+                    color1 = "green"
+                if y in a:
+                    color2 = "green"
+                pyvis_graph.add_node(x, label=x, title=x, color=color1)
+                pyvis_graph.add_node(y, label=y, title=y, color=color2)
+                if x in a and y in a:
                     color = "green"
-                if b == 0:
-                    color = "red"
-                pyvis_graph.add_node(x, label=x, title=x, color=color)
-                pyvis_graph.add_node(y, label=y, title=y, color=color)
                 pyvis_graph.add_edge(x, y, label=z, title=z, color=color)
         # t = "Path: {n1} ,distance: {n2} ,total: {n3} ,max: {n4}".format(n1=a, n2=b, n3=c, n4=d)
         pyvis_graph.force_atlas_2based()
@@ -675,18 +682,24 @@ class Ui_MainWindow(object):
 
     def ucsMethod(self):
         nameOfGraph = "ucs.html"
-        pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%")
+        pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%", bgcolor="#222222",
+                                            font_color="#FFFFFF")
         a, b, c, d = ucs(dict_graph, self.comboBox.currentText(), self.comboBox_2.currentText())
+
         with open("cities.txt", 'r') as f:
             for l in f:
                 color = "red"
+                color1 = "red"
+                color2 = "red"
                 x, y, z = l.split()
-                if x in a or y in a:
+                if x in a:
+                    color1 = "green"
+                if y in a:
+                    color2 = "green"
+                pyvis_graph.add_node(x, label=x, title=x, color=color1)
+                pyvis_graph.add_node(y, label=y, title=y, color=color2)
+                if x in a and y in a:
                     color = "green"
-                if b == 0:
-                    color = "red"
-                pyvis_graph.add_node(x, label=x, title=x, color=color)
-                pyvis_graph.add_node(y, label=y, title=y, color=color)
                 pyvis_graph.add_edge(x, y, label=z, title=z, color=color)
         # t = "Path: {n1} ,distance: {n2} ,total: {n3} ,max: {n4}".format(n1=a, n2=b, n3=c, n4=d)
         # t = t.replace("Path:",termcolor.colored("Path:","blue"))
@@ -706,18 +719,24 @@ class Ui_MainWindow(object):
 
     def itsMethod(self):
         nameOfGraph = "its.html"
-        pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%")
+        pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%", bgcolor="#222222",
+                                            font_color="#FFFFFF")
         a, b, c, d = IterativeDeepening(dict_graph, self.comboBox.currentText(), self.comboBox_2.currentText())
+
         with open("cities.txt", 'r') as f:
             for l in f:
                 color = "red"
+                color1 = "red"
+                color2 = "red"
                 x, y, z = l.split()
-                if x in a or y in a:
+                if x in a:
+                    color1 = "green"
+                if y in a:
+                    color2 = "green"
+                pyvis_graph.add_node(x, label=x, title=x, color=color1)
+                pyvis_graph.add_node(y, label=y, title=y, color=color2)
+                if x in a and y in a:
                     color = "green"
-                if b == 0:
-                    color = "red"
-                pyvis_graph.add_node(x, label=x, title=x, color=color)
-                pyvis_graph.add_node(y, label=y, title=y, color=color)
                 pyvis_graph.add_edge(x, y, label=z, title=z, color=color)
         # t = "Path: {n1} ,distance: {n2} ,total: {n3} ,max: {n4}".format(n1=a, n2=b, n3=c, n4=d)
         pyvis_graph.force_atlas_2based()
