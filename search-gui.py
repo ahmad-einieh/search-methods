@@ -724,8 +724,8 @@ class Ui_MainWindow(object):
         nameOfGraph = "its.html"
         pyvis_graph = pyvis.network.Network(notebook=True, height="100%", width="100%", bgcolor="#222222",
                                             font_color="#FFFFFF")
-        a, b, c, d = IterativeDeepening(dict_graph, self.comboBox.currentText(), self.comboBox_2.currentText())
-
+        a, b, c, d ,total= IterativeDeepening(dict_graph, self.comboBox.currentText(), self.comboBox_2.currentText())
+        print(total)
         with open("cities.txt", 'r') as f:
             for l in f:
                 color = "red"

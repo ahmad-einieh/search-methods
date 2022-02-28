@@ -332,7 +332,6 @@ Al-uwayqilah Rafha 153
 Jizan Sabia 36
 Jizan Abu-Areesh 34
 Jizan Ahad-Al-Mosarha 53
-Jizan Farasan 60
 Sabia Abu-Areesh 36
 Sabia Baish 34
 Sabia Damad 24
@@ -369,3 +368,4 @@ Domat-Al-Jandal Sakaka 48
 Domat-Al-Jandal Tubarjal 195
 Al-Qurayyat Turaif 160
 Al-Qurayyat Tubarjal 132
+Al-Dammam Al-Jubail 94.8

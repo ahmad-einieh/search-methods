@@ -63,15 +63,19 @@ def IterativeDeepening(graph, src, dst):
     max = 0
     stack = [(src, [src], 0)]
     visited = {src}
+    total = 0
     if len(stack) > max:
         max = len(stack)
     if src == dst:
-        return src, 0, len(visited), max
+        return src, 0, len(visited), max,total+1
     while True:
         if len(stack) > max:
             max = len(stack)
+
         level += 1
+        #total += len(stack)
         while stack:
+            total += len(stack)
             if len(stack) > max:
                 max = len(stack)
             if count <= level:
@@ -81,13 +85,15 @@ def IterativeDeepening(graph, src, dst):
                     if len(stack) > max:
                         max = len(stack)
                     if temp == dst:
-                        return path + [temp], cost + graph[node][temp], len(visited), max
+                        return path + [temp], cost + graph[node][temp], len(visited), max,total+1
                     else:
                         if temp not in visited:
                             visited.add(temp)
                             count += 1
                             stack.append((temp, path + [temp], cost + graph[node][temp]))
+
             else:
+                #total += len(stack)
                 q = stack
                 if(len(q) > max):
                     max = len(q)
@@ -104,7 +110,7 @@ def IterativeDeepening(graph, src, dst):
                         if (len(stack) > max):
                             max = len(stack)
                         if temp == dst:
-                            return path + [temp], cost + graph[node][temp], len(visited) + len(visited_bfs), max
+                            return path + [temp], cost + graph[node][temp], len(visited) + len(visited_bfs), max,total+1
                         else:
                             if temp not in visited_bfs:
                                 visited_bfs.add(temp)
