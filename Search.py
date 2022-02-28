@@ -125,6 +125,7 @@ def ucsHelper(item):
 def ucs(graph, src, dst):
     max = 0
     q = [(src, [src], 0)]
+    q.sort(key=ucsHelper)
     visited = {src}
     if len(q) > max:
         max = len(q)
@@ -133,6 +134,7 @@ def ucs(graph, src, dst):
     while q:
         if len(q) > max:
             max = len(q)
+
         (node, path, cost) = q.pop(0)
         for temp in list(graph[node].keys()):
             if len(q) > max:
@@ -142,6 +144,7 @@ def ucs(graph, src, dst):
             else:
                 if temp not in visited:
                     visited.add(temp)
+                    tempDis =  cost + dict_graph[node][temp]
                     q.append((temp, path + [temp], cost + graph[node][temp]))
                     q.sort(key=ucsHelper)
 

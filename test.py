@@ -125,16 +125,40 @@ def IterativeDeepening(graph, src, dst):
                 break
 
 
-xx, yy, zz, newXX = BreadthFirstSearch(dict_graph, "Riyadh", "Abha")
-with open("cities.txt", 'r') as f:
-    for l in f:
-        color = "red"
-        a, b, c = l.split()
-        if a in xx or b in xx:
-            color = "green"
-        pyvis_graph.add_node(a, label=a, title=a, color=color)
-        pyvis_graph.add_node(b, label=b, title=b, color=color)
-        pyvis_graph.add_edge(a, b, label=c, title=c, color=color)
+# xx, yy, zz, newXX = BreadthFirstSearch(dict_graph, "Riyadh", "Abha")
+# with open("cities.txt", 'r') as f:
+#     for l in f:
+#         color = "red"
+#         a, b, c = l.split()
+#         if a in xx or b in xx:
+#             color = "green"
+#         pyvis_graph.add_node(a, label=a, title=a, color=color)
+#         pyvis_graph.add_node(b, label=b, title=b, color=color)
+#         pyvis_graph.add_edge(a, b, label=c, title=c, color=color)
+#
+# pyvis_graph.force_atlas_2based()
+# pyvis_graph.show("graph.html")
+def uniform_cost_search(graph, start, end):
+    visited = []
 
-pyvis_graph.force_atlas_2based()
-pyvis_graph.show("graph.html")
+    queue = PriorityQueue()
+    queue.put((0, [start]))
+
+    while not queue.empty():
+        node = queue.get()
+        node_name = node[1][-1]
+        node_distance = node[0]
+
+        if node_name == end:
+            # print(node_distance)
+            print("Path : " + str(node[1]) + " ; Cost : " + str(node_distance))
+            exit()
+
+        visited.append(node_name)
+
+        for each in graph[node_name]:
+            if each not in visited:
+                distance = node_distance + graph[node_name][each]
+                queue.put((distance, node[1] + [each]))
+
+print(uniform_cost_search(dict_graph,"Taima","Sharorah"))
